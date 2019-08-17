@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activity.Main_page">
+
+   <LinearLayout
+       android:layout_marginTop="150dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:gravity="center">
+
+       <ImageView
+           android:layout_width="100dp"
+           android:layout_height="100dp"
+           android:src="@drawable/ic_hotel_key"/>
+
+       <pl.droidsonroids.gif.GifImageView
+           android:layout_marginTop="50dp"
+           android:layout_width="100dp"
+           android:layout_height="100dp"
+           android:src="@drawable/double_ring" />
+
+       <TextView
+           android:textSize="30sp"
+           android:layout_marginTop="10dp"
+           android:textColor="@color/black"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/loading"
+           android:gravity="center"/>
+
+   </LinearLayout>
+
+</LinearLayout>

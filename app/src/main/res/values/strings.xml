@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">pg</string>
+    <string name="enter_username">Enter User Name</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="login">Login</string>
+    <string name="registration">Ragistration</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="redirect_to_login">Goto Login</string>
+    <string name="redirect_to_registration">Goto Registration</string>
+    <string name="Add_PG">Add PG</string>
+    <string name="add_second_pg">Add second PG</string>
+    <string name="loading">Loading..</string>
+
+
+    <string name="rentee">Rentee Registration</string>
+
+
+    <string name="enter_fname">first name</string>
+    <string name="enter_lname">last name</string>
+    <string name="enter_gender">Gender:</string>
+    <string name="enter_father_name">Fathers name</string>
+    <string name="enter_dob">Date of birth</string>
+    <string name="enter_mobile">Mobile Number</string>
+    <string name="enter_pmobile">Parents Mobile Number</string>
+    <string name="enter_occupation">Occupation</string>
+    <string name="enter_Permanent_address">Permanent Address</string>
+    <string name="enter_office_address">Working Address</string>
+    <string name="upload_id_proof">Upload id proof</string>
+    <string name="upload_photo">Upload photo</string>
+    <string name="enter_pg_name">PG Name/Number</string>
+    <string name="enter_room_number">Room name/number</string>
+    <string name="enter_bed_number">bed number</string>
+
+
+    <string name="male">Male</string>
+    <string name="fmale">Female</string>
+    <string name="submit">Save Details</string>
+    <string name="clear">Clear</string>
+
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="pg_name">PG name</string>
+
+
+</resources>
