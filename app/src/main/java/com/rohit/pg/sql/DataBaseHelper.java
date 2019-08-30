@@ -6,10 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.rohit.pg.model.renti_model;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     public DataBaseHelper(Context context) {
-        super(context, "PgManagement1.db", null, 3);
+        super(context, "PgManagement2.db", null, 4);
     }
 
     @Override
@@ -18,8 +23,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("Create table user(UserName text primary key,email text, password text)");
 
         sqLiteDatabase.execSQL("Create table rentee(first_name text, last_name text,gender text,father_name text," +
-                "mobile text,p_mobile text,occupation text,permanent_address text,working_address text," +
-                " pg_number text,room_number text,bed_number text,id BLOB,profile BLOB)");
+                "mobile text,whatsapp_mobile text,p_mobile text,occupation text,permanent_address text,working_address text," +
+                " pg_number text,room_number text,bed_number text,id BLOB)");
 
     }
 
@@ -82,9 +87,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insert_rentee(String firt_name, String last_name, String gender, String father_name, String mobile, String p_mobile, String ocupation,
+    public boolean insert_rentee(String firt_name, String last_name, String gender, String father_name, String mobile,String whatsapp_mobile, String p_mobile, String ocupation,
                                  String permanent_address, String working_address, String pg_number, String room_number, String bed_number,
-                                 byte[] id_image, byte[] profile_image)
+                                 byte[] id_image)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -93,6 +98,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("gender",gender);
         contentValues.put("father_name",father_name);
         contentValues.put("mobile",mobile);
+        contentValues.put("whatsapp_mobile",whatsapp_mobile);
         contentValues.put("p_mobile",p_mobile);
         contentValues.put("occupation",ocupation);
         contentValues.put("permanent_address",permanent_address);
@@ -101,7 +107,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("room_number",room_number);
         contentValues.put("bed_number",bed_number);
         contentValues.put("id",id_image);
-        contentValues.put("profile",profile_image);
 
         long ins = db.insert("rentee",null,contentValues);
         if(ins == -1)
@@ -115,10 +120,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getData(String sql){
-        SQLiteDatabase database = getReadableDatabase();
-        return database.rawQuery(sql, null);
-    }
+    public List<renti_model> getDetails()
+    {
+        List<renti_model> renti_model_List = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from rentee",null);
+        if(cursor.moveToFirst())
+        {
+           do
+           {
+               String first_name = cursor.getString(0);
+               String last_name = cursor.getString(1);
+               String gender = cursor.getString(2);
+               String father_name = cursor.getString(3);
+               String mobile = cursor.getString(4);
+               String whatsapp_mobile = cursor.getString(5);
+               String p_mobile = cursor.getString(6);
+               String occupation = cursor.getString(7);
+               String permanent_add = cursor.getString(8);
+               String working_add = cursor.getString(9);
+               String pg_num = cursor.getString(10);
+               String room_num = cursor.getString(11);
+               String bed_num = cursor.getString(12);
+               byte[] id_image = cursor.getBlob(13);
 
+               renti_model renti_model = new renti_model(first_name,last_name,gender,father_name,mobile,whatsapp_mobile,p_mobile,
+                       occupation,permanent_add,working_add,pg_num,room_num,bed_num,id_image);
+               renti_model_List.add(renti_model);
+           }
+           while (cursor.moveToNext());
+        }
+        return renti_model_List;
+    }
 
 }

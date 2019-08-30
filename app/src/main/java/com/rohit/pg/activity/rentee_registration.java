@@ -28,27 +28,25 @@ import com.rohit.pg.sql.DataBaseHelper;
 import java.io.ByteArrayOutputStream;
 
 import static com.rohit.pg.R.drawable.ic_id_card;
-import static com.rohit.pg.R.drawable.ic_man;
 
 public class rentee_registration extends AppCompatActivity {
 
-    EditText fname,lname,father_name,mobile,parents_mobile,occupation,permanent_address,working_address,pg_name,room_name,bed_number;
-    Button save_button,clear_button,id_button,profile_button;
+    EditText fname,lname,father_name,mobile,parents_mobile,occupation,permanent_address,working_address,pg_name,room_name,bed_number,whatsapp_number1;
+    Button save_button,clear_button,id_button;
     RadioButton male,female;
     RadioGroup gender;
-    ImageView id_proof,profile;
+    ImageView id_proof,back;
     private static int RESULT_LOAD_IMAGE_ID = 1;
-    private static int RESULT_LOAD_IMAGE_PROFILE = 2;
     private static final int PERMISSION_REQUEST_CODE = 1;
 
     DataBaseHelper dataBaseHelper;
 
     byte[] id_image,profile_image;
-    String picpath_id,picpath_profile;
+    String picpath_profile;
 
 
     String renti_fname,renti_lname,renti_gender = "male",renti_father_name, renti_ocuupation,renti_permanent_address,renti_work_address,renti_pg_name,renti_room_name,renti_bed_number;
-    String renti_mobile,renti_parents_mobile;
+    String renti_mobile,renti_parents_mobile,renti_whatsapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +60,7 @@ public class rentee_registration extends AppCompatActivity {
         lname = findViewById(R.id.renti_lastname);
         father_name = findViewById(R.id.renti_father_name);
         mobile = findViewById(R.id.renti_mobile_number);
+        whatsapp_number1 = findViewById(R.id.renti_whatsapp_number);
         parents_mobile = findViewById(R.id.renti_parents_mobile);
         occupation = findViewById(R.id.renti_occupation);
         permanent_address = findViewById(R.id.renti_permanet_address);
@@ -73,8 +72,7 @@ public class rentee_registration extends AppCompatActivity {
         //buttons
         save_button = findViewById(R.id.renti_submit);
         clear_button = findViewById(R.id.renti_clear);
-        id_button = findViewById(R.id.renti_id_proof_button);
-        profile_button = findViewById(R.id.renti_profile_button);
+        id_button = findViewById(R.id.renti_id_button);
 
         //checkBoxes
         male = findViewById(R.id.renti_male_gender);
@@ -82,8 +80,18 @@ public class rentee_registration extends AppCompatActivity {
         gender = findViewById(R.id.renti_gender);
 
         //image_view
-        id_proof = findViewById(R.id.renti_id_proof);
-        profile = findViewById(R.id.renti_profile);
+        id_proof = findViewById(R.id.renti_profile);
+        back = findViewById(R.id.back);
+
+
+        //on Back button pressed
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -105,20 +113,6 @@ public class rentee_registration extends AppCompatActivity {
        });
 
 
-       profile_button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               if (checkPermission())
-               {
-                   Intent id_button = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                   startActivityForResult(id_button,RESULT_LOAD_IMAGE_PROFILE);
-               }
-               else
-               {
-                   requestPermission();
-               }
-           }
-       });
 
         gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -145,7 +139,8 @@ public class rentee_registration extends AppCompatActivity {
                 renti_fname = fname.getText().toString().trim();
                 renti_lname = lname.getText().toString().trim();
                 renti_father_name = father_name.getText().toString().trim();
-                renti_mobile = mobile.getText().toString();
+                renti_mobile = "+91 "+mobile.getText().toString();
+                renti_whatsapp = whatsapp_number1.getText().toString();
                 renti_parents_mobile = parents_mobile.getText().toString();
                 renti_ocuupation = occupation.getText().toString().trim();
                 renti_permanent_address = permanent_address.getText().toString().trim();
@@ -154,32 +149,22 @@ public class rentee_registration extends AppCompatActivity {
                 renti_bed_number = bed_number.getText().toString().trim();
                 renti_room_name = room_name.getText().toString().trim();
                 id_image =  imageViewToByte(id_proof);
-                profile_image = imageViewToByte(profile);
 
-                boolean chk = dataBaseHelper.insert_rentee(renti_fname,renti_lname,renti_gender,renti_father_name,renti_mobile,renti_parents_mobile,renti_ocuupation, renti_permanent_address,renti_work_address,renti_pg_name,renti_room_name, renti_bed_number,id_image,profile_image);
+
+                boolean chk = dataBaseHelper.insert_rentee(renti_fname,renti_lname,renti_gender,renti_father_name,renti_mobile,
+                        renti_whatsapp,renti_parents_mobile,renti_ocuupation, renti_permanent_address,renti_work_address,
+                        renti_pg_name,renti_room_name, renti_bed_number,id_image);
                 if(chk)
                 {
                     Toast.makeText(getApplicationContext(),"Hurry Data Saved.....:)",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
+                    startActivity(intent);
                     clear_data();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Problem :)",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"There is Problem in saving data:(",Toast.LENGTH_LONG).show();
                 }
-
-
-
-
-                /*try
-                {
-
-
-
-                }
-                catch (Exception e)
-                {
-                    Toast.makeText(getApplicationContext(),"Thire is error in Saving data "+ e,Toast.LENGTH_LONG).show();
-                }*/
             }
         });
 
@@ -189,7 +174,7 @@ public class rentee_registration extends AppCompatActivity {
     {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
@@ -219,22 +204,9 @@ public class rentee_registration extends AppCompatActivity {
             assert cursor != null;
             cursor.moveToFirst();
             int columeIndex = cursor.getColumnIndex(path[0]);
-            picpath_id = cursor.getString(columeIndex);
-            cursor.close();
-            id_proof.setImageBitmap(BitmapFactory.decodeFile(picpath_id));
-        }
-        if(requestCode == RESULT_LOAD_IMAGE_PROFILE && resultCode == RESULT_OK && data != null)
-        {
-            Uri selectedImage = data.getData();
-            String[] path = {MediaStore.Images.Media.DATA};
-            assert selectedImage != null;
-            Cursor cursor = getContentResolver().query(selectedImage,path,null,null,null);
-            assert cursor != null;
-            cursor.moveToFirst();
-            int columeIndex = cursor.getColumnIndex(path[0]);
             picpath_profile = cursor.getString(columeIndex);
             cursor.close();
-            profile.setImageBitmap(BitmapFactory.decodeFile(picpath_profile));
+            id_proof.setImageBitmap(BitmapFactory.decodeFile(picpath_profile));
         }
     }
 
@@ -271,9 +243,12 @@ public class rentee_registration extends AppCompatActivity {
         pg_name.setText("");
         room_name.setText("");
         bed_number.setText("");
-
         id_proof.setImageResource(ic_id_card);
-        profile.setImageResource(ic_man);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
+        startActivity(intent);
+    }
 }

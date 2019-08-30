@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.renti_list_view">
+    tools:context=".activity.image_show">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:id="@+id/ui"
         android:orientation="horizontal">
 
         <ImageView
@@ -33,33 +32,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="@string/list"
+            android:text="@string/show"
             android:textSize="25sp"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:id="@+id/share"
+            android:src="@drawable/ic_share_black_24dp"/>
 
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ui"
-        android:id="@+id/list">
-    </ListView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_Note"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom"
-        android:clickable="true"
-        android:elevation="5dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_content_add_circle"
-        app:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"
-        tools:ignore="RtlHardcoded"
-        android:focusable="true"  />
+        android:layout_margin="10dp">
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/set_image"/>
+
+    </LinearLayout>
+
+</LinearLayout>

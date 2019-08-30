@@ -8,34 +8,40 @@
     android:orientation="vertical"
     tools:context=".activity.rentee_registration">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/back"
+            android:src="@drawable/ic_back"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:id="@+id/logo"
             android:src="@drawable/ic_hotel_key"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rentee"
-            android:textSize="30sp"
-            android:textColor="@color/black"/>
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="@string/details"
+            android:textSize="25sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
 
         <ScrollView
@@ -127,6 +133,15 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/enter_whatsapp_number"
+                    android:inputType="phone"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/renti_whatsapp_number"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/enter_pmobile"
                     android:textSize="25sp"
                     android:inputType="phone"
@@ -197,30 +212,7 @@
                     android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:id="@+id/renti_id_proof"
-                            android:src="@drawable/ic_id_card"/>
-
-                        <Button
-                            android:layout_marginTop="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/upload_id_proof"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center"
-                            android:background="@color/colorPrimary"
-                            android:id="@+id/renti_id_proof_button"/>
-
-                    </LinearLayout>
 
                   <LinearLayout
                       android:layout_width="200dp"
@@ -234,7 +226,7 @@
                           android:layout_width="100dp"
                           android:layout_height="100dp"
                           android:id="@+id/renti_profile"
-                          android:src="@drawable/ic_man"/>
+                          android:src="@drawable/ic_id_card"/>
 
                       <Button
                           android:layout_marginTop="10dp"
@@ -244,11 +236,9 @@
                           android:textColor="@color/black"
                           android:layout_gravity="center"
                           android:background="@color/colorPrimary"
-                          android:id="@+id/renti_profile_button"/>
+                          android:id="@+id/renti_id_button"/>
 
                   </LinearLayout>
-
-
 
                 </LinearLayout>
 
@@ -259,7 +249,7 @@
                    android:gravity="center"
                    android:layout_marginTop="50dp"
                    android:layout_gravity="center"
-                   android:layout_marginBottom="50dp">
+                   android:layout_marginBottom="100dp">
 
                    <Button
                        android:layout_width="200dp"

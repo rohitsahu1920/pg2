@@ -9,6 +9,7 @@ public class renti_model implements Serializable {
     private String gender;
     private String father_name;
     private String mobile;
+    private String whatsapp;
     private String p_mobile;
     private String occupation;
     private String permanent_address;
@@ -17,22 +18,22 @@ public class renti_model implements Serializable {
     private String room_no;
     private String bed_no;
     private byte[] id_image;
-    private byte[] profile_image;
 
     @Override
     public String toString(){
         return first_name;
     }
 
-    public renti_model(String first_name, String last_name, String gender, String father_name, String mobile,
+    public renti_model(String first_name, String last_name, String gender, String father_name, String mobile,String whatsapp,
                        String p_mobile, String occupation, String permanent_address, String current_address,
-                       String pg_name, String room_no, String bed_no, byte[] id_image, byte[] profile_image)
+                       String pg_name, String room_no, String bed_no, byte[] id_image)
     {
         this.first_name = first_name;
         this.last_name = last_name;
         this.gender = gender;
         this.father_name = father_name;
         this.mobile = mobile;
+        this.whatsapp = whatsapp;
         this.p_mobile = p_mobile;
         this.occupation = occupation;
         this.permanent_address = permanent_address;
@@ -41,7 +42,6 @@ public class renti_model implements Serializable {
         this.room_no = room_no;
         this.bed_no = bed_no;
         this.id_image = id_image;
-        this.profile_image = profile_image;
     }
 
     public void setFirst_name(String first_name) {
@@ -96,8 +96,8 @@ public class renti_model implements Serializable {
         this.id_image = id_image;
     }
 
-    public void setProfile_image(byte[] profile_image) {
-        this.profile_image = profile_image;
+    public  String getWhatsapp(){
+        return  whatsapp;
     }
 
     public String getFirst_name() {
@@ -151,12 +151,6 @@ public class renti_model implements Serializable {
     public byte[] getId_image() {
         return id_image;
     }
-
-    public byte[] getProfile_image() {
-        return profile_image;
-    }
-
-
 
 
 }

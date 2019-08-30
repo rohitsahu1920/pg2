@@ -31,6 +31,7 @@
     <string name="enter_pg_name">PG Name/Number</string>
     <string name="enter_room_number">Room name/number</string>
     <string name="enter_bed_number">bed number</string>
+    <string name="enter_whatsapp_number">WhatsApp Number</string>
 
 
     <string name="male">Male</string>
@@ -41,6 +42,32 @@
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="pg_name">PG name</string>
+
+    <string name="details">Rentee Details</string>
+    <string name="profile">Profile</string>
+    <string name="id">Id Proof</string>
+
+    <string name="first">First Name:</string>
+    <string name="last">Last Name:</string>
+    <string name="gender">Gender:</string>
+    <string name="father">Father Name:</string>
+    <string name="mobile">Mobile no.:</string>
+    <string name="parents">Parents no.:</string>
+    <string name="occupation">occupation:</string>
+    <string name="p_add">Permanent Add.:</string>
+    <string name="c_add">Current Add.:</string>
+    <string name="PG_name">Pg Name:</string>
+    <string name="Room_number">Room Number:</string>
+    <string name="Bed_number">Bed Number:</string>
+    <string name="whatsapp_number">WhatsApp Number:</string>
+
+    <string name="update">Update</string>
+    <string name="call">Call</string>
+    <string name="pdf">Generate Pdf</string>
+    <string name="massage">Rent Reminder</string>
+
+    <string name="list">Rentee List</string>
+    <string name="show">Rentee ID Proof</string>
 
 
 </resources>

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
                     if(chk == true)
                     {
                         Toast.makeText(getApplicationContext(),"Login Successfuly",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this,rentee_registration.class);
+                        Intent intent = new Intent(MainActivity.this,renti_list_view.class);
                         startActivity(intent);
                         finish();
                     }
