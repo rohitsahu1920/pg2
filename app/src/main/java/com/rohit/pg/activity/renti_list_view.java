@@ -31,6 +31,7 @@ public class renti_list_view extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     DataBaseHelper dataBaseHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class renti_list_view extends AppCompatActivity {
                                 if(delete == true)
                                 {
                                     Toast.makeText(getApplicationContext(),"Record Deleted Successfully",Toast.LENGTH_LONG).show();
+                                    retive();
                                 }
                                 else
                                 {

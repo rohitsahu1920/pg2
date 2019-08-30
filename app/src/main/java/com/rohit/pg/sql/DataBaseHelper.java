@@ -88,10 +88,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean delete(String phone,String w_phone,String fname,String lname)
+    public boolean delete(String fname,String lname,String phone,String w_phone)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        long delete = db.delete("rentee", "first_name = ?, last_name = ?, mobile = ?, whatsapp_mobile = ?",new String[]{fname,lname,phone,w_phone});
+        long delete = db.delete("rentee", "first_name = ? and last_name = ? and mobile = ? and whatsapp_mobile = ?",new String[]{fname,lname,phone,w_phone});
         if(delete == -1)
         {
             return false;

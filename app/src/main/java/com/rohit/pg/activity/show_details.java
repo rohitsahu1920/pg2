@@ -1,6 +1,7 @@
 package com.rohit.pg.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,11 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.rohit.pg.R;
 import com.rohit.pg.model.renti_model;
+import com.rohit.pg.sql.DataBaseHelper;
 
 public class show_details extends AppCompatActivity {
 
@@ -30,11 +33,17 @@ public class show_details extends AppCompatActivity {
     Bitmap id1;
     int image_len;
     byte[] image;
+    DataBaseHelper dataBaseHelper;
+
+    String pdf_data = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_details);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        dataBaseHelper = new DataBaseHelper(this);
 
         //Class and object
         final PackageManager pm = getPackageManager();
@@ -70,6 +79,50 @@ public class show_details extends AppCompatActivity {
 
         //setting data
         setdata();
+
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final String fname = first_name.getText().toString();
+                final String lname = last_name.getText().toString();
+                final String phone = mobile.getText().toString();
+                final String w_phone = whatsapp_no.getText().toString();
+
+
+                builder.setMessage("Note:- Data will be permanently delete..!")
+                        .setCancelable(true)
+                        .setTitle("Do you really want to Delete ?")
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Boolean delete = dataBaseHelper.delete(fname,lname,phone,w_phone);
+                                if(delete == true)
+                                {
+                                    Toast.makeText(getApplicationContext(),"Record Deleted Successfully",Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
+                                    startActivity(intent);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(),"Problem in deleting Record",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+            }
+        });
 
         id.setOnClickListener(new View.OnClickListener() {
             @Override
