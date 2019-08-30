@@ -1,12 +1,15 @@
 package com.rohit.pg.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +36,8 @@ public class renti_list_view extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_renti_list_view);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         listView = findViewById(R.id.list);
         dataBaseHelper = new DataBaseHelper(this);
         floatingActionButton = findViewById(R.id.fab_Note);
@@ -47,6 +52,48 @@ public class renti_list_view extends AppCompatActivity {
         });
 
         retive();
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                renti_model Renti_model = list.get(i);
+                final String fname = Renti_model.getFirst_name();
+                final String lname = Renti_model.getLast_name();
+                final String phone = Renti_model.getMobile();
+                final String w_phone = Renti_model.getWhatsapp();
+
+                builder.setMessage("Note:- Data will be permanently delete..!")
+                        .setCancelable(true)
+                        .setTitle("Do you really want to Delete ?")
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Boolean delete = dataBaseHelper.delete(fname,lname,phone,w_phone);
+                                if(delete == true)
+                                {
+                                    Toast.makeText(getApplicationContext(),"Record Deleted Successfully",Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(),"Problem in deleting Record",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+                return false;
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

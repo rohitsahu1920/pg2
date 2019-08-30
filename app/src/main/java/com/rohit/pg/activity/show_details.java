@@ -28,6 +28,8 @@ public class show_details extends AppCompatActivity {
     Button update, pdf, alert;
     private static final int REQUEST_PHONE_CALL = 1;
     Bitmap id1;
+    int image_len;
+    byte[] image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class show_details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),image_show.class);
-                intent.putExtra("image",id1);
+                intent.putExtra("image",image);
                 startActivity(intent);
             }
         });
@@ -160,6 +162,9 @@ public class show_details extends AppCompatActivity {
         pg_name.setText(Renti_model.getPg_name());
         room_number.setText(Renti_model.getRoom_no());
         bed_number.setText(Renti_model.getBed_no());
+
+        image_len = Renti_model.getId_image().length;
+        image = Renti_model.getId_image();
         id1 = BitmapFactory.decodeByteArray(Renti_model.getId_image(),0,Renti_model.getId_image().length);
         id.setImageBitmap(id1);
     }

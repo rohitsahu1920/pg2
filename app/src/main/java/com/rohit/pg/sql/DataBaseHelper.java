@@ -87,6 +87,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    public boolean delete(String phone,String w_phone,String fname,String lname)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long delete = db.delete("rentee", "first_name = ?, last_name = ?, mobile = ?, whatsapp_mobile = ?",new String[]{fname,lname,phone,w_phone});
+        if(delete == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public boolean insert_rentee(String firt_name, String last_name, String gender, String father_name, String mobile,String whatsapp_mobile, String p_mobile, String ocupation,
                                  String permanent_address, String working_address, String pg_number, String room_number, String bed_number,
                                  byte[] id_image)
