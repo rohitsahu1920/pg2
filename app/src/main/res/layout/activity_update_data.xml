@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".activity.rentee_registration">
-
+    tools:context=".activity.update_data">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="@string/details"
+            android:text="@string/Update"
             android:textSize="25sp"/>
 
     </LinearLayout>
@@ -215,59 +213,52 @@
 
 
 
-                  <LinearLayout
-                      android:layout_width="200dp"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      android:layout_gravity="center"
-                      android:layout_marginLeft="5dp"
-                      android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center">
 
-                      <ImageView
-                          android:layout_width="100dp"
-                          android:layout_height="100dp"
-                          android:id="@+id/renti_profile"
-                          android:src="@drawable/ic_id_card"/>
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:id="@+id/renti_profile"
+                            android:src="@drawable/ic_id_card"/>
 
-                      <Button
-                          android:layout_marginTop="10dp"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:text="@string/upload_id_proof"
-                          android:textColor="@color/black"
-                          android:layout_gravity="center"
-                          android:background="@color/colorPrimary"
-                          android:id="@+id/renti_id_button"/>
+                        <Button
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/upload_id_proof"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:id="@+id/renti_id_button"/>
 
-                  </LinearLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="horizontal"
-                   android:gravity="center"
-                   android:layout_marginTop="50dp"
-                   android:layout_gravity="center"
-                   android:layout_marginBottom="100dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="100dp">
 
-                   <Button
-                       android:layout_width="200dp"
-                       android:layout_height="wrap_content"
-                       android:text="@string/submit"
-                       android:background="@color/colorPrimary"
-                       android:id="@+id/renti_submit" />
+                    <Button
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/update"
+                        android:background="@color/colorPrimary"
+                        android:id="@+id/renti_update" />
 
-                   <Button
-                       android:layout_width="200dp"
-                       android:layout_marginLeft="5dp"
-                       android:layout_height="wrap_content"
-                       android:text="@string/clear"
-                       android:background="@color/colorPrimary"
-                       android:id="@+id/renti_clear" />
 
-               </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
 

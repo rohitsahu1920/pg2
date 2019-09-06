@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class renti_list_view extends AppCompatActivity {
     byte[] id_image,profile_image;
     FloatingActionButton floatingActionButton;
     DataBaseHelper dataBaseHelper;
+    ImageView delete,reload;
 
 
     @Override
@@ -39,10 +41,28 @@ public class renti_list_view extends AppCompatActivity {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        delete = findViewById(R.id.delete);
+        reload = findViewById(R.id.reload);
         listView = findViewById(R.id.list);
         dataBaseHelper = new DataBaseHelper(this);
         floatingActionButton = findViewById(R.id.fab_Note);
         theList = new ArrayList<>();
+
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete_all();
+            }
+        });
+
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                retive();
+                Toast.makeText(getApplicationContext(),"Data List Refreshed..:)",Toast.LENGTH_LONG).show();
+            }
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,5 +132,41 @@ public class renti_list_view extends AppCompatActivity {
         list = dataBaseHelper.getDetails();
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
         listView.setAdapter(arrayAdapter);
+    }
+
+
+
+    public void delete_all()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Note:- Data will be permanently delete all DATA...!")
+                .setCancelable(true)
+                .setTitle("Do you really want to Delete ?")
+                .setIcon(R.drawable.ic_warning)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Boolean delete = dataBaseHelper.delete_all();
+                        if(delete == true)
+                        {
+                            Toast.makeText(getApplicationContext(),"Record Deleted Successfully",Toast.LENGTH_LONG).show();
+                            retive();
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Problem in deleting Record",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog alert11 = builder.create();
+        alert11.show();
     }
 }

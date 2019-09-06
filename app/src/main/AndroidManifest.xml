@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.image_show"></activity>
+        <activity android:name=".activity.update_data"></activity>
+        <activity android:name=".activity.about" />
+        <activity android:name=".activity.image_show" />
         <activity android:name=".activity.show_details" />
         <activity android:name=".activity.renti_list_view" />
         <activity android:name=".activity.rentee_registration" />

@@ -39,6 +39,18 @@ public class registration extends AppCompatActivity {
             }
         });
 
+
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+        if(b != null)
+        {
+
+            byte[] bitmap = (byte[]) b.get("image");
+            //image = BitmapFactory.decodeByteArray(bitmap,0,bitmap.length);
+            //imageView.setImageBitmap(BitmapFactory.decodeByteArray(bitmap,0,bitmap.length));
+        }
+
+
         registration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -69,5 +69,11 @@
     <string name="list">Rentee List</string>
     <string name="show">Rentee ID Proof</string>
 
-
+    <string name="reload">Reload</string>
+    <string name="about">About me</string>
+    <string name="dev1">Developed by: BCTUBE</string>
+    <string name="email1">Uic.mca8152@gmail.com</string>
+    <string name="email_notes">Click on Email address to send email</string>
+    <string name="delete">Delete all data</string>
+    <string name="Update">Update Rentee Details</string>
 </resources>

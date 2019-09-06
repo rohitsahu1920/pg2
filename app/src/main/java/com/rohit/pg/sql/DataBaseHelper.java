@@ -49,6 +49,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean delete_all()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long delete = db.delete("rentee", null,null);
+        if(delete == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public boolean chkuser(String UserName){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from user where UserName = ?",new String[]{UserName});
@@ -124,6 +138,38 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("id",id_image);
 
         long ins = db.insert("rentee",null,contentValues);
+        if(ins == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public boolean update_rentee(String firt_name, String last_name, String gender, String father_name, String mobile,String whatsapp_mobile, String p_mobile, String ocupation,
+                                 String permanent_address, String working_address, String pg_number, String room_number, String bed_number,
+                                 byte[] id_image)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("first_name",firt_name);
+        contentValues.put("last_name",last_name);
+        contentValues.put("gender",gender);
+        contentValues.put("father_name",father_name);
+        contentValues.put("mobile",mobile);
+        contentValues.put("whatsapp_mobile",whatsapp_mobile);
+        contentValues.put("p_mobile",p_mobile);
+        contentValues.put("occupation",ocupation);
+        contentValues.put("permanent_address",permanent_address);
+        contentValues.put("working_address",working_address);
+        contentValues.put("pg_number",pg_number);
+        contentValues.put("room_number",room_number);
+        contentValues.put("bed_number",bed_number);
+        contentValues.put("id",id_image);
+
+        long ins = (long) db.update("rentee",contentValues,"first_name = ? or last_name = ? or mobile = ? or whatsapp_mobile = ?",new String[]{firt_name,last_name,mobile,whatsapp_mobile});
         if(ins == -1)
         {
             return false;

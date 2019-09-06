@@ -29,10 +29,10 @@ import java.io.ByteArrayOutputStream;
 
 import static com.rohit.pg.R.drawable.ic_id_card;
 
-public class rentee_registration extends AppCompatActivity {
+public class update_data extends AppCompatActivity {
 
     EditText fname,lname,father_name,mobile,parents_mobile,occupation,permanent_address,working_address,pg_name,room_name,bed_number,whatsapp_number1;
-    Button save_button,clear_button,id_button;
+    Button update_button,clear_button,id_button;
     RadioButton male,female;
     RadioGroup gender;
     ImageView id_proof,back;
@@ -51,7 +51,7 @@ public class rentee_registration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rentee_registration);
+        setContentView(R.layout.activity_update_data);
 
         dataBaseHelper = new DataBaseHelper(this);
 
@@ -70,7 +70,7 @@ public class rentee_registration extends AppCompatActivity {
         bed_number = findViewById(R.id.renti_bed_number);
 
         //buttons
-        save_button = findViewById(R.id.renti_submit);
+        update_button = findViewById(R.id.renti_update);
         clear_button = findViewById(R.id.renti_clear);
         id_button = findViewById(R.id.renti_id_button);
 
@@ -83,18 +83,6 @@ public class rentee_registration extends AppCompatActivity {
         id_proof = findViewById(R.id.renti_profile);
         back = findViewById(R.id.back);
 
-
-        //on Back button pressed
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
-                startActivity(intent);
-            }
-        });
-
-
-        //data coming from show details to update data.
         Intent i = getIntent();
         Bundle b = i.getExtras();
         if(b != null)
@@ -142,43 +130,24 @@ public class rentee_registration extends AppCompatActivity {
         }
 
 
-        clear_function();
-        //taking permission and image button funtinality
-       id_button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               if (checkPermission())
-               {
-                   Intent id_button = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                   startActivityForResult(id_button,RESULT_LOAD_IMAGE_ID);
-               }
-               else
-               {
-                   requestPermission();
-               }
-           }
-       });
-
-
-
-        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        //setting image
+        id_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i)
+            public void onClick(View view) {
+                if (checkPermission())
                 {
-                    case R.id.renti_male_gender:
-                        renti_gender = "male";
-                        break;
-                    case R.id.renti_fname:
-                        renti_gender = "female";
-                        break;
+                    Intent id_button = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(id_button,RESULT_LOAD_IMAGE_ID);
+                }
+                else
+                {
+                    requestPermission();
                 }
             }
         });
 
 
-       //Insert button
-        save_button.setOnClickListener(new View.OnClickListener() {
+        update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -188,7 +157,7 @@ public class rentee_registration extends AppCompatActivity {
                 renti_father_name = father_name.getText().toString().trim();
                 renti_mobile = "+91 "+mobile.getText().toString();
                 renti_whatsapp = whatsapp_number1.getText().toString();
-                renti_parents_mobile = parents_mobile.getText().toString();
+                renti_parents_mobile = "+91"+parents_mobile.getText().toString();
                 renti_ocuupation = occupation.getText().toString().trim();
                 renti_permanent_address = permanent_address.getText().toString().trim();
                 renti_work_address = working_address.toString().trim();
@@ -198,45 +167,43 @@ public class rentee_registration extends AppCompatActivity {
                 id_image =  imageViewToByte(id_proof);
 
 
-                boolean chk = dataBaseHelper.insert_rentee(renti_fname,renti_lname,renti_gender,renti_father_name,renti_mobile,
+                boolean chk = dataBaseHelper.update_rentee(renti_fname,renti_lname,renti_gender,renti_father_name,renti_mobile,
                         renti_whatsapp,renti_parents_mobile,renti_ocuupation, renti_permanent_address,renti_work_address,
                         renti_pg_name,renti_room_name, renti_bed_number,id_image);
                 if(chk)
                 {
-                    Toast.makeText(getApplicationContext(),"Hurry Data Saved.....:)",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Hurry Data Updated.....:)",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
                     startActivity(intent);
                     clear_data();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"There is Problem in saving data:(",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"There is Problem in Updating data:(",Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
 
-    private byte[] imageViewToByte(ImageView image)
-    {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(update_data.this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    private void requestPermission() {
 
-    public void clear_function()
-    {
-        clear_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               clear_data();
-            }
-        });
+        if (ActivityCompat.shouldShowRequestPermissionRationale(update_data.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Toast.makeText(update_data.this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(update_data.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        } else {
+            ActivityCompat.requestPermissions(update_data.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -257,24 +224,13 @@ public class rentee_registration extends AppCompatActivity {
         }
     }
 
-
-    private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(rentee_registration.this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void requestPermission() {
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(rentee_registration.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Toast.makeText(rentee_registration.this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
-            ActivityCompat.requestPermissions(rentee_registration.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-        } else {
-            ActivityCompat.requestPermissions(rentee_registration.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-        }
+    private byte[] imageViewToByte(ImageView image)
+    {
+        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
     public void clear_data()
@@ -291,11 +247,5 @@ public class rentee_registration extends AppCompatActivity {
         room_name.setText("");
         bed_number.setText("");
         id_proof.setImageResource(ic_id_card);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(),renti_list_view.class);
-        startActivity(intent);
     }
 }

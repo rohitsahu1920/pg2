@@ -28,6 +28,8 @@ public class show_details extends AppCompatActivity {
 
     ImageView logo, whatsapp, call, delete, id, back;
     TextView first_name, last_name, gender, father_name, mobile,whatsapp_no, parents_mobile, occupation, p_add, c_add, pg_name, room_number, bed_number;
+    String fname,lname,gender1,father,pnone,w_phone,f_mobile,occu,p_address,c_address,pg,room,bed;
+    byte[] id_img;
     Button update, pdf, alert;
     private static final int REQUEST_PHONE_CALL = 1;
     Bitmap id1;
@@ -79,6 +81,45 @@ public class show_details extends AppCompatActivity {
 
         //setting data
         setdata();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                renti_model Renti_model = (renti_model)getIntent().getExtras().getSerializable("renti");
+                fname = Renti_model.getFirst_name();
+                lname = Renti_model.getLast_name();
+                gender1 = Renti_model.getGender();
+                father = Renti_model.getFather_name();
+                pnone = Renti_model.getMobile();
+                w_phone = Renti_model.getWhatsapp();
+                f_mobile = Renti_model.getP_mobile();
+                occu = Renti_model.getOccupation();
+                p_address = Renti_model.getPermanent_address();
+                c_address = Renti_model.getCurrent_address();
+                pg = Renti_model.getPg_name();
+                room = Renti_model.getRoom_no();
+                bed = Renti_model.getBed_no();
+                id_img = Renti_model.getId_image();
+
+                Intent intent = new Intent(getApplicationContext(),update_data.class);
+                intent.putExtra("fname",fname);
+                intent.putExtra("lname",lname);
+                intent.putExtra("gender",gender1);
+                intent.putExtra("father",father);
+                intent.putExtra("phone",pnone);
+                intent.putExtra("w_phone",w_phone);
+                intent.putExtra("f_mobile",f_mobile);
+                intent.putExtra("occu",occu);
+                intent.putExtra("p_address",p_address);
+                intent.putExtra("c_address",c_address);
+                intent.putExtra("pg",pg);
+                intent.putExtra("room",room);
+                intent.putExtra("bed",bed);
+                intent.putExtra("id_img",id_img);
+
+                startActivity(intent);
+            }
+        });
 
 
         delete.setOnClickListener(new View.OnClickListener() {
@@ -215,11 +256,9 @@ public class show_details extends AppCompatActivity {
         pg_name.setText(Renti_model.getPg_name());
         room_number.setText(Renti_model.getRoom_no());
         bed_number.setText(Renti_model.getBed_no());
-
         image_len = Renti_model.getId_image().length;
         image = Renti_model.getId_image();
         id1 = BitmapFactory.decodeByteArray(Renti_model.getId_image(),0,Renti_model.getId_image().length);
         id.setImageBitmap(id1);
     }
-
 }
